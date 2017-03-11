@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>YouTube Thumbnail Viewer</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-3.3.7.min.css" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv-3.7.3.min.js"></script>
+      <script src="js/respond-1.4.2.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-9 col-center">
+
+          <div class="page-header">
+            <h1>YouTube Thumbnail Viewer</h1>
+          </div>
+
+          <!-- YouTube video URL input group -->
+          <div class="form-group" id="video_url_group">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Paste YouTube video URL here" title="YouTube video URL" id="video_url">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" id="getthumbs" onclick="prepareToGetThumbs()">Get thumbs</button>
+              </span>
+            </div>
+            <span class="help-block hide" id="video_url_group_err">Cannot determine video ID. Please double-check the URL.</span>
+          </div>
+
+          <!-- Output area, initially hidden -->
+          <div id="output_area" class="collapse">
+
+            <h3>Thumbnails</h3>
+
+            <!-- Tabs -->
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#0">Main</a></li>
+              <li><a data-toggle="tab" href="#1">Alt. 1</a></li>
+              <li><a data-toggle="tab" href="#2">Alt. 2</a></li>
+              <li><a data-toggle="tab" href="#3">Alt. 3</a></li>
+              <li><a data-toggle="tab" href="#default">Default</a></li>
+              <li><a data-toggle="tab" href="#hqdefault">Default (HQ)</a></li>
+              <li><a data-toggle="tab" href="#mqdefault">Default (MQ)</a></li>
+              <li><a data-toggle="tab" href="#sddefault">Default (SD)</a></li>
+              <li><a data-toggle="tab" href="#maxresdefault">Default (max. res.)</a></li>
+            </ul>
+            <!-- Tabs end -->
+
+            <!-- Tabs’ contents -->
+            <div class="tab-content">
+              <div id="0" class="tab-pane fade in active">
+                <p class="mt-1em"><img id="youtube_0_img" class="img-responsive" src="" alt="The main thumb will appear here."></p>
+                <div class="input-group">
+                  <span class="input-group-addon" id="glyphicon-0-url-addon"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></span>
+                  <input type="text" readonly class="form-control" placeholder="(Full URL link to the main thumbnail image will appear here)" title="Full URL link to the main thumbnail image" id="youtube_0_url">
+                  <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button" id="copy_0_url" title="Copy to clipboard" onclick="copyURL('0')"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="download_0_img" title="Download" download><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="open_0_img" title="Open in a new window" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                  </span>
+                </div>
+              </div>
+              <div id="1" class="tab-pane fade">
+                <p class="mt-1em"><img id="youtube_1_img" class="img-responsive" src="" alt="The alt. 1 thumb will appear here."></p>
+                <div class="input-group">
+                  <span class="input-group-addon" id="glyphicon-1-url-addon"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></span>
+                  <input type="text" readonly class="form-control" placeholder="(Full URL link to the alt. 1 thumbnail image will appear here)" title="Full URL link to the alt. 1 thumbnail image" id="youtube_1_url">
+                  <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button" id="copy_1_url" title="Copy to clipboard" onclick="copyURL('1')"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="download_1_img" title="Download" download><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="open_1_img" title="Open in a new window" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                  </span>
+                </div>
+              </div>
+              <div id="2" class="tab-pane fade">
+                <p class="mt-1em"><img id="youtube_2_img" class="img-responsive" src="" alt="The alt. 2 thumb will appear here."></p>
+                <div class="input-group">
+                  <span class="input-group-addon" id="glyphicon-2-url-addon"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></span>
+                  <input type="text" readonly class="form-control" placeholder="(Full URL link to the alt. 2 thumbnail image will appear here)" title="Full URL link to the alt. 2 thumbnail image" id="youtube_2_url">
+                  <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button" id="copy_2_url" title="Copy to clipboard" onclick="copyURL('2')"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="download_2_img" title="Download" download><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="open_2_img" title="Open in a new window" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                  </span>
+                </div>
+              </div>
+              <div id="3" class="tab-pane fade">
+                <p class="mt-1em"><img id="youtube_3_img" class="img-responsive" src="" alt="The alt. 3 thumb will appear here."></p>
+                <div class="input-group">
+                  <span class="input-group-addon" id="glyphicon-3-url-addon"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></span>
+                  <input type="text" readonly class="form-control" placeholder="(Full URL link to the alt. 3 thumbnail image will appear here)" title="Full URL link to the alt. 3 thumbnail image" id="youtube_3_url">
+                  <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button" id="copy_3_url" title="Copy to clipboard" onclick="copyURL('3')"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="download_3_img" title="Download" download><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="open_3_img" title="Open in a new window" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                  </span>
+                </div>
+              </div>
+              <div id="default" class="tab-pane fade">
+                <p class="mt-1em"><img id="youtube_default_img" class="img-responsive" src="" alt="The default thumb will appear here."></p>
+                <div class="input-group">
+                  <span class="input-group-addon" id="glyphicon-default-url-addon"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></span>
+                  <input type="text" readonly class="form-control" placeholder="(Full URL link to the default thumbnail image will appear here)" title="Full URL link to the default thumbnail image" id="youtube_default_url">
+                  <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button" id="copy_default_url" title="Copy to clipboard" onclick="copyURL('default')"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="download_default_img" title="Download" download><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="open_default_img" title="Open in a new window" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                  </span>
+                </div>
+              </div>
+              <div id="hqdefault" class="tab-pane fade">
+                <p class="mt-1em"><img id="youtube_hqdefault_img" class="img-responsive" src="" alt="The hqdefault thumb will appear here."></p>
+                <div class="input-group">
+                  <span class="input-group-addon" id="glyphicon-hqdefault-url-addon"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></span>
+                  <input type="text" readonly class="form-control" placeholder="(Full URL link to the hqdefault thumbnail image will appear here)" title="Full URL link to the hqdefault thumbnail image" id="youtube_hqdefault_url">
+                  <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button" id="copy_hqdefault_url" title="Copy to clipboard" onclick="copyURL('hqdefault')"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="download_hqdefault_img" title="Download" download><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="open_hqdefault_img" title="Open in a new window" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                  </span>
+                </div>
+              </div>
+              <div id="mqdefault" class="tab-pane fade">
+                <p class="mt-1em"><img id="youtube_mqdefault_img" class="img-responsive" src="" alt="The mqdefault thumb will appear here."></p>
+                <div class="input-group">
+                  <span class="input-group-addon" id="glyphicon-mqdefault-url-addon"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></span>
+                  <input type="text" readonly class="form-control" placeholder="(Full URL link to the mqdefault thumbnail image will appear here)" title="Full URL link to the mqdefault thumbnail image" id="youtube_mqdefault_url">
+                  <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button" id="copy_mqdefault_url" title="Copy to clipboard" onclick="copyURL('mqdefault')"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="download_mqdefault_img" title="Download" download><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="open_mqdefault_img" title="Open in a new window" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                  </span>
+                </div>
+              </div>
+              <div id="sddefault" class="tab-pane fade">
+                <p class="mt-1em"><img id="youtube_sddefault_img" class="img-responsive" src="" alt="The sddefault thumb will appear here."></p>
+                <div class="input-group">
+                  <span class="input-group-addon" id="glyphicon-sddefault-url-addon"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></span>
+                  <input type="text" readonly class="form-control" placeholder="(Full URL link to the sddefault thumbnail image will appear here)" title="Full URL link to the sddefault thumbnail image" id="youtube_sddefault_url">
+                  <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button" id="copy_sddefault_url" title="Copy to clipboard" onclick="copyURL('sddefault')"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="download_sddefault_img" title="Download" download><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="open_sddefault_img" title="Open in a new window" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                  </span>
+                </div>
+              </div>
+              <div id="maxresdefault" class="tab-pane fade">
+                <p class="mt-1em"><img id="youtube_maxresdefault_img" class="img-responsive" src="" alt="The maxresdefault thumb will appear here."></p>
+                <div class="input-group">
+                  <span class="input-group-addon" id="glyphicon-maxresdefault-url-addon"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></span>
+                  <input type="text" readonly class="form-control" placeholder="(Full URL link to the maxresdefault thumbnail image will appear here)" title="Full URL link to the maxresdefault thumbnail image" id="youtube_maxresdefault_url">
+                  <span class="input-group-btn">
+                    <a href="#" class="btn btn-default" type="button" id="copy_maxresdefault_url" title="Copy to clipboard" onclick="copyURL('maxresdefault')"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="download_maxresdefault_img" title="Download" download><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+                    <a href="#" class="btn btn-default" type="button" id="open_maxresdefault_img" title="Open in a new window" target="_blank"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- Tabs’ contents end -->
+          </div>
+          <!-- Output area ends -->
+
+        </div> <!-- Column ends -->
+      </div> <!-- Row ends -->
+
+    </div> <!-- Container ends -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap-3.3.7.min.js"></script>
+    <!-- And finally, our webapp logic -->
+    <script src="js/custom.js"></script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+body {
+    background-image: linear-gradient(90deg, #FFBB00 1%, #F7F7F7 1%, #F7F7F7 99%, #FFBB00 99%);
+}
+
+.mt-1em {
+  margin-top: 1em !important;
+}
+
+.col-center {
+   float: none;
+   margin-right: auto;
+   margin-left: auto;
+}
