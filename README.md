@@ -1,4 +1,4 @@
-![Screenshot](preview.png "Screenshot")
+![Screenshot](preview.jpg "Screenshot")
 
 ## WTF is this about
 Some YouTube videos out there have pretty interesting and cool previews, making me want to have a closer look on them. So, for a while, I was figuring out and typing in their URLs by hand. Eventually I grew tired of that and decided to make a web app (more like a webpage, really).
