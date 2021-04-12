@@ -55,6 +55,17 @@ $('#output_area').on('hidden.bs.collapse', function() {
     getThumbs();
 });
 
+// Pressing Enter key on the keyboard with the URL input field focused
+// equals clicking on the 'Get thumbs' button
+$('#video_url').keyup(function(event) {
+    if (event.keyCode == 13) {
+        // Cancel the browser-default action
+        event.preventDefault();
+        // Trigger the button
+        document.getElementById('getthumbs').click();
+    }
+});
+
 // Main function
 function getThumbs() {
     // Extract the video ID using a carefully designed regular expression
