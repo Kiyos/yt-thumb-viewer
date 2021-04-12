@@ -14,4 +14,4 @@ The app is designed to be run locally, i.e. by just double-clicking `index.html`
 * Bootstrap 3.3.7
 * JQuery 1.12.4
 
-Everything is being used as effective and as correctly as possible (to the extent of my knowledge). What I didn’t do, however, is make sure that all of this works in all of the browsers in the world, including outdated ones. Maybe some day I’ll look into that.
+Everything is being used as effectively and as correctly as possible (to the extent of my knowledge). What I didn’t do, however, is make sure that all of this works in all of the browsers in the world, including outdated ones. Maybe some day I’ll look into that.
